@@ -11,7 +11,7 @@
     <link href="css/blog.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body ng-app="blog">
 
     <div class="blog-masthead">
       <div class="container">
@@ -27,6 +27,7 @@
 
     <div class="container">
 
+<div ng-view></div>
       <div class="blog-header">
         <h1 class="blog-title">The Bootstrap Blog</h1>
         <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
@@ -150,5 +151,9 @@
 
     <script src="vnd/angular/angular.js"></script>
     <script src="vnd/angular-route/angular-route.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController.js"></script>
+    <script src="js/controllers/PostController.js"></script>
   </body>
 </html>
