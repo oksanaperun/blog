@@ -1,1 +1,38 @@
-post
+post {{post.id}}
+{{post.title}}
+{{post.text}}
+{{post.author}}
+
+<div>
+	<div>
+		<h3>{{post.title}}</h3>
+		<h5>by {{post.author}} on {{post.timestamp | date}}</h5>
+		<span>{{post.text}}</span>
+	</div>
+</div>
+
+<h3>Your comments</h3>
+<ul>
+	<li ng-repeat="comment in comments">
+		<a>
+			<img src="../img/noavatar.png" alt="no avatar">
+		</a>
+		<div>
+			<h4>{{comment.summary}}</h4>
+			{{comment.text}}
+		</div>
+	</li>
+</ul>
+<!-- / Readers' comments -->
+
+<form class="form-horizontal comment" role="form">
+	<div class="form-group">
+		<input class="form-control" placeholder="Summary">
+	</div>
+	<div class="form-group">
+		<textarea class="form-control" rows="3"></textarea>
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">Post comment</button>
+	</div>
+</form>

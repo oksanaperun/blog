@@ -1,1 +1,17 @@
-list
+<ul class="blog-posts-list">
+	<li ng-repeat="post in posts">
+		<div class="blog-post">
+            <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
+            <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
+            <p>{{post.text}}</p>
+          </div>
+	</li>
+</ul>
+
+<nav>
+    <ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</nav>
+
