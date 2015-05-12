@@ -18,4 +18,12 @@ app.service('BlogService', function($http) {
 			method: 'GET'
 		});
 	}
+	this.postComment = function(params) {
+		return $http({
+			url: 'http://localhost:3003/api/posts/' + params.id + '/comments',
+			method: 'POST',
+			data: '{"text":"'+ params.text +'","title":"'+ params.summary +'"}',
+    		headers: {'Content-Type': 'application/json'}
+		});		
+	}
 });

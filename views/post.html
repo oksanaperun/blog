@@ -1,8 +1,3 @@
-post {{post.id}}
-{{post.title}}
-{{post.text}}
-{{post.author}}
-
 <div>
 	<div>
 		<h3>{{post.title}}</h3>
@@ -18,21 +13,21 @@ post {{post.id}}
 			<img src="../img/noavatar.png" alt="no avatar">
 		</a>
 		<div>
-			<h4>{{comment.summary}}</h4>
+			<h4>{{comment.title}}</h4>
 			{{comment.text}}
 		</div>
 	</li>
 </ul>
 <!-- / Readers' comments -->
 
-<form class="form-horizontal comment" role="form">
+<form class="form-horizontal comment" role="form" ng-controller="CommentController">
 	<div class="form-group">
-		<input class="form-control" placeholder="Summary">
+		<input ng-model="summary" class="form-control" placeholder="Summary">
 	</div>
 	<div class="form-group">
-		<textarea class="form-control" rows="3"></textarea>
+		<textarea ng-model="text" class="form-control" rows="3" placeholder="Your comment"></textarea>
 	</div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-default">Post comment</button>
+		<button type="submit" class="btn btn-default" ng-click="addComment()">Post comment</button>
 	</div>
 </form>
