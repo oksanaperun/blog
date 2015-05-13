@@ -21,16 +21,19 @@
 		</a>
 	</li>
 </ul>
-<!-- / Readers' comments -->
 
-<form name="addCommentForm" class="form-horizontal comment" role="form" ng-controller="CommentController">
-	<div class="form-group">
-		<input ng-model="comment.summary" class="form-control" placeholder="Summary">
+<form name="addCommentForm" class="form-horizontal comment" role="form" ng-controller="CommentController" ng-init="displayAddCommentButton=true">
+	<button class="btn btn-default" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false">Add comment</button>
+	<div ng-show="!displayAddCommentButton">
+	<label>New comment</label>
+	<div class="form-group" >
+		<input ng-model="comment.summary" class="form-control" placeholder="Summary" >
 	</div>
 	<div class="form-group">
 		<textarea ng-model="comment.text" class="form-control" rows="3" placeholder="Your comment"></textarea>
 	</div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-default" ng-click="addComment()">Post comment</button>
+		<button type="submit" class="btn btn-default" ng-click="addComment(); displayAddCommentButton=true">Post comment</button>
+	</div>
 	</div>
 </form>

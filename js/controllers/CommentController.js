@@ -5,7 +5,7 @@ app.controller('CommentController', function($routeParams, $scope, BlogService) 
 		"summary": $scope.comment.summary,
 		"text": $scope.comment.text
 	};
-
+	
 	BlogService.addComment(params).then(function(){
 		var comment = {
 			"title": params.summary,
@@ -15,6 +15,7 @@ app.controller('CommentController', function($routeParams, $scope, BlogService) 
 			"summary": "",
 			"text": ""
 		};
+
         $scope.comments.push(comment);
         $scope.addCommentForm.$setPristine();
         $scope.comment = defaultForm;
