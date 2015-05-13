@@ -7,10 +7,14 @@ app.controller('PostController', function($routeParams, $scope, BlogService) {
 	});
 
 	$scope.deleteComment = function(index) {
-	var commentId = $scope.comments[index].id;
+		BlogService.getPostComments($routeParams.id).then(function(payload) {
+			$scope.comments = payload.data;
+			
+			var commentId = $scope.comments[index].id;
 
-	BlogService.deleteComment($routeParams.id, commentId).then(function(){
-        $scope.comments.splice(index, 1);
+			BlogService.deleteComment($routeParams.id, commentId).then(function(){
+        	$scope.comments.splice(index, 1);
 	});
+		});
 	};
 });
