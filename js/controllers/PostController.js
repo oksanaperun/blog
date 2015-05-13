@@ -5,4 +5,12 @@ app.controller('PostController', function($routeParams, $scope, BlogService) {
 			$scope.comments = payload.data;
 		});
 	});
+
+	$scope.deleteComment = function(index) {
+	var commentId = $scope.comments[index].id;
+
+	BlogService.deleteComment($routeParams.id, commentId).then(function(){
+        $scope.comments.splice(index, 1);
+	});
+	};
 });

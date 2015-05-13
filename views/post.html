@@ -16,6 +16,9 @@
 			<h4>{{comment.title}}</h4>
 			{{comment.text}}
 		</div>
+		<a>
+			<img class="delete" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
+		</a>
 	</li>
 </ul>
 <!-- / Readers' comments -->

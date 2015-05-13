@@ -6,7 +6,7 @@ app.controller('CommentController', function($routeParams, $scope, BlogService) 
 		"text": $scope.comment.text
 	};
 
-	BlogService.postComment(params).then(function(){
+	BlogService.addComment(params).then(function(){
 		var comment = {
 			"title": params.summary,
 		    "text": params.text	
