@@ -22,6 +22,22 @@ app.controller('MainController', function($scope, BlogService) {
         $scope.posts.push(post);
         $scope.addPostForm.$setPristine();
         $scope.post = defaultForm;
+
+        BlogService.getPosts().then(function(payload) {
+		$scope.posts = payload.data;
 	});
+	});
+	};
+
+	$scope.deletePost = function(index) {
+		BlogService.getPosts().then(function(payload) {
+			$scope.posts = payload.data;
+
+			var postId = $scope.posts[index].id;
+
+			BlogService.deletePost(postId).then(function(){
+        	$scope.posts.splice(index, 1);
+	});
+		});
 	};
 });

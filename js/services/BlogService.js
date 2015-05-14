@@ -46,4 +46,12 @@ app.service('BlogService', function($http) {
 			method: 'DELETE'
 		});		
 	};
+	this.updateComment = function(postId, commentId, params) {
+		return $http({
+			url: 'http://localhost:3003/api/posts/' + postId + '/comments/' + commentId,
+			method: 'PUT',
+			data: '{"text":"'+ params.text +'","title":"'+ params.summary +'"}',
+    		headers: {'Content-Type': 'application/json'}
+		});		
+	};
 });

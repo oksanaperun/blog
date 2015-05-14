@@ -10,19 +10,42 @@
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-default" ng-click="addPost(); displayAddPostButton=true">Post</button>
+		<button type="button" class="btn btn-default" ng-click="displayAddPostButton=true">Cancel</button>
 	</div>
 	</div>
 </form>
 <div ng-show="displayAddPostButton">
 <ul class="blog-posts-list">
-	<li ng-repeat="post in posts">
+	<li ng-repeat="post in posts" ng-init="postToDeleteIndex=-1">
 		<div class="blog-post">
             <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
             <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
             <p>{{post.text}}</p>
+            <a hfer="">
+			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="postToDeleteIndex=$index">
+			</a>
           </div>
 	</li>
 </ul>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeletingModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeletingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2>Confirm deleting</h2>
+    </div>
+    <div class="modal-body">
+    Are you about to delete a post?
+    </div>
+    <div class="modal-footer">
+     	<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="deletePost(postToDeleteIndex)">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>        
+      </div>
+    </div>
+  </div>
+    </div>
 
 <nav>
     <ul class="pager">
