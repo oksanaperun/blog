@@ -22,7 +22,7 @@
             <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
             <p>{{post.text}}</p>
             <a hfer="">
-			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="postToDeleteIndex=$index">
+			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="setPostIndexToDelete($index)">
 			</a>
           </div>
 	</li>
@@ -40,7 +40,7 @@
     Are you about to delete a post?
     </div>
     <div class="modal-footer">
-     	<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="deletePost(postToDeleteIndex)">Yes</button>
+     	<button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="deletePost()">Yes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>        
       </div>
     </div>

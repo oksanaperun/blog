@@ -29,15 +29,19 @@ app.controller('MainController', function($scope, BlogService) {
 	});
 	};
 
-	$scope.deletePost = function(index) {
+	$scope.deletePost = function() {
 		BlogService.getPosts().then(function(payload) {
 			$scope.posts = payload.data;
 
-			var postId = $scope.posts[index].id;
+			var postId = $scope.posts[$scope.postIndexToDelete].id;
 
 			BlogService.deletePost(postId).then(function(){
-        	$scope.posts.splice(index, 1);
+        	$scope.posts.splice($scope.postIndexToDelete, 1);
 	});
 		});
+	};
+
+	$scope.setPostIndexToDelete = function(index) {
+		$scope.postIndexToDelete = index;
 	};
 });
