@@ -34,6 +34,12 @@ app.service('BlogService', function($http) {
     		headers: {'Content-Type': 'application/json'}
 		});		
 	};
+	this.deletePost = function(id) {
+		return $http({
+			url: 'http://localhost:3003/api/posts/' + id,
+			method: 'DELETE'
+		});		
+	};
 	this.deleteComment = function(postId, commentId) {
 		return $http({
 			url: 'http://localhost:3003/api/posts/' + postId + '/comments/' + commentId,
