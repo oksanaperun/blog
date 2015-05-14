@@ -21,7 +21,7 @@
             <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
             <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
             <p>{{post.text}}</p>
-            <a hfer="">
+            <a class="pull-right" href="" title="To delete post">
 			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="setPostIndexToDelete($index)">
 			</a>
           </div>

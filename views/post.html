@@ -17,11 +17,11 @@
 			<h4>{{comment.summary}}</h4>
 			{{comment.text}}
 		</div>
-		<a>
-			<img class="comment-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
-		</a>
-		<a>
+		<a class="pull-right" href="" title="To delete comment">
 			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
+		</a>
+		<a class="pull-right" href="" title="To edit comment">
+			<img class="comment-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
 		</a>
 	</div>
 	</li>
