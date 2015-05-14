@@ -14,49 +14,32 @@
 			<img class="avatar" src="../img/noavatar.png" alt="no avatar">
 		</a>
 		<div>
-			<h4>{{comment.title}}</h4>
+			<h4>{{comment.summary}}</h4>
 			{{comment.text}}
 		</div>
 		<a>
-			<img class="comment-btn" src="../img/edit-button.png" alt="edit button" ng-click="showFilledInCommentForm($index); displaycommentEditForm=true">
+			<img class="comment-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
 		</a>
 		<a>
 			<img class="comment-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
 		</a>
 	</div>
-
-	<form name="commentEditForm" class="form-horizontal comment" role="form" ng-show="displaycommentEditForm">
-	<label>Comment</label>
-	<div class="form-group" >
-		<input ng-model="editComment.summary" class="form-control" placeholder="Summary" >
-	</div>
-	<div class="form-group">
-		<textarea ng-model="editComment.text" class="form-control" rows="3" placeholder="Your comment"></textarea>
-	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-default" ng-click="updateComment(); displaycommentEditForm=false">Update comment</button>
-		<button class="btn btn-default" ng-click="displaycommentEditForm=false">Cancel</button>
-	</div>
-	</div>
-</form>
 	</li>
 </ul>
 
-
-
 <form name="commentForm" class="form-horizontal comment" role="form" ng-init="displayAddCommentButton=true">
 	<button class="btn btn-default" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false">Add comment</button>
-	<div ng-show="!displayAddCommentButton">
-	<label>New comment</label>
-	<div class="form-group" >
+	<label ng-show="!displayAddCommentButton && !displayCommentEditForm">New comment</label>
+	<label ng-show="displayCommentEditForm">Your posted comment</label>
+	<div class="form-group" ng-show="!displayAddCommentButton">
 		<input ng-model="comment.summary" class="form-control" placeholder="Summary" >
 	</div>
-	<div class="form-group">
+	<div class="form-group" ng-show="!displayAddCommentButton">
 		<textarea ng-model="comment.text" class="form-control" rows="3" placeholder="Your comment"></textarea>
 	</div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-default" ng-click="addComment(); displayAddCommentButton=true">Post comment</button>
-		<button class="btn btn-default" ng-click="displayAddCommentButton=true">Cancel</button>
-	</div>
+		<button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && !displayCommentEditForm" ng-click="addComment(); displayAddCommentButton=true">Post</button>
+		<button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && displayCommentEditForm" ng-click="updateComment(); displayAddCommentButton=true; displayCommentEditForm=false">Update</button>
+		<button class="btn btn-default" ng-show="!displayAddCommentButton || displayCommentEditForm" ng-click="clearCommentForm(); displayAddCommentButton=true; displayCommentEditForm=false">Cancel</button>
 	</div>
 </form>
