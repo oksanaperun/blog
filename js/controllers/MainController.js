@@ -13,15 +13,10 @@ app.controller('MainController', function($scope, BlogService) {
 		var post = {
 			"title": params.title,
 		    "text": params.text	
-		},
-		defaultForm = {
-			"title": "",
-			"text": ""
 		};
 
         $scope.posts.push(post);
-        $scope.addPostForm.$setPristine();
-        $scope.post = defaultForm;
+        $scope.clearPostForm();
 
         BlogService.getPosts().then(function(payload) {
 		$scope.posts = payload.data;
@@ -43,5 +38,47 @@ app.controller('MainController', function($scope, BlogService) {
 
 	$scope.setPostIndexToDelete = function(index) {
 		$scope.postIndexToDelete = index;
+	};
+
+	$scope.updatePost = function() {
+		var post = {
+		"title": $scope.post.title,
+		"text": $scope.post.text
+	};
+
+	BlogService.getPosts().then(function(payload) {
+			$scope.posts = payload.data;
+
+			var postId = $scope.posts[$scope.postIndexToUpdate].id;
+
+			BlogService.updatePost(postId, post).then(function() {
+        	$scope.posts[$scope.postIndexToUpdate] = post;
+	});
+		});
+	};
+
+	$scope.showPostFormWithPostData = function(index) {
+	$scope.displayAddPostButton = false;
+	$scope.displayPostEditForm = true;
+	$scope.postIndexToUpdate = index;
+	BlogService.getPosts().then(function(payload) {
+	$scope.posts = payload.data;
+	var filledInForm = {
+			"title": $scope.posts[index].title,
+			"text": $scope.posts[index].text
+		};
+
+	$scope.post = filledInForm;
+	});
+	};
+
+	$scope.clearPostForm = function() {
+	var defaultForm = {
+			"title": "",
+			"text": ""
+		};
+
+ 	$scope.postForm.$setPristine();
+    $scope.post = defaultForm;
 	};
 });

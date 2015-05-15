@@ -30,7 +30,7 @@
 <form name="commentForm" class="form-horizontal comment" role="form" ng-init="displayAddCommentButton=true">
 	<button class="btn btn-default" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false">Add comment</button>
 	<label ng-show="!displayAddCommentButton && !displayCommentEditForm">New comment</label>
-	<label ng-show="displayCommentEditForm">Your posted comment</label>
+	<label ng-show="displayCommentEditForm">Your comment</label>
 	<div class="form-group" ng-show="!displayAddCommentButton">
 		<input ng-model="comment.summary" class="form-control" placeholder="Summary" >
 	</div>
