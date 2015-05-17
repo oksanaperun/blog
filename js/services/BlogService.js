@@ -6,6 +6,12 @@ app.service('BlogService', function ($http) {
             method: 'GET'
         });
     };
+    this.getPostsAfterPostId = function (id, length) {
+        return $http({
+            url: 'http://localhost:3003/api/posts?after=' + id + '&length=' + length,
+            method: 'GET'
+        });
+    };
     this.getPostDetails = function (id) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + id,
