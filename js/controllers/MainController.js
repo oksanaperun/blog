@@ -8,10 +8,10 @@ app.controller('MainController', function ($scope, BlogService) {
             "title": $scope.post.title,
             "text": $scope.post.text
         };
-        
-        $scope.clearPostForm();
+
         BlogService.addPost(post).then(function () {
             $scope.posts.push(post);
+            $scope.clearPostForm();
 
             BlogService.getPosts().then(function (payload) {
                 $scope.posts = payload.data;
@@ -32,32 +32,36 @@ app.controller('MainController', function ($scope, BlogService) {
     };
 
     $scope.setPostIndexToDelete = function (index) {
-        $scope.postIndexToDelete = $scope.posts.length - 1 - index;
+        $scope.postIndexToDelete = index;
     };
 
     $scope.updatePost = function () {
         var post = {
             "title": $scope.post.title,
             "text": $scope.post.text
-        },
-        postId = $scope.posts[$scope.postIndexToUpdate].id;
+        };
 
-		$scope.clearPostForm();
-        BlogService.updatePost(postId, post).then(function () {
+        BlogService.getPosts().then(function (payload) {
+            $scope.posts = payload.data;
+
+            var postId = $scope.posts[$scope.postIndexToUpdate].id;
+
+            BlogService.updatePost(postId, post).then(function () {
                 $scope.posts[$scope.postIndexToUpdate] = post;
             });
+        });
     };
 
     $scope.showPostFormWithPostData = function (index) {
         $scope.displayAddPostButton = false;
         $scope.displayPostEditForm = true;
+        $scope.postIndexToUpdate = index;
         BlogService.getPosts().then(function (payload) {
             $scope.posts = payload.data;
-			$scope.postIndexToUpdate = $scope.posts.length - 1 - index;
 
             var filledInForm = {
-                "title": $scope.posts[$scope.postIndexToUpdate].title,
-                "text": $scope.posts[$scope.postIndexToUpdate].text
+                "title": $scope.posts[index].title,
+                "text": $scope.posts[index].text
             };
 
             $scope.post = filledInForm;

@@ -27,7 +27,7 @@
 
 <div ng-show="displayAddPostButton">
     <ul class="blog-posts-list">
-        <li ng-repeat="post in posts| orderBy:'id':true" ng-init="postToDeleteIndex=-1">
+        <li ng-repeat="post in posts" ng-init="postToDeleteIndex=-1">
             <div class="blog-post">
                 <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
                 <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
