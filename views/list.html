@@ -68,6 +68,7 @@
     <nav>
         <ul class="pager">
             <li><a href="" ng-show="pageNumber>0" ng-click="getNextOrPrevPosts('prev')">Previous</a></li>
+            <li><a href="" class="pull-right" ng-show="isNextPostsExist" ng-click="getNextOrPrevPosts('next')">Next</a></li>
         </ul>
     </nav>
 </div>
