@@ -1,6 +1,12 @@
 app.controller('MainController', function ($scope, BlogService) {
-    BlogService.getPosts().then(function (payload) {
+	var postsPerPage = 5,
+		startIndexOnPage = 0;
+
+	$scope.pageNumber = 0; 
+
+    BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
         $scope.posts = payload.data;
+        $scope.checkNextPostsExist();
     });
 
     $scope.addPost = function () {
@@ -10,24 +16,34 @@ app.controller('MainController', function ($scope, BlogService) {
         };
 
         BlogService.addPost(post).then(function () {
-            $scope.posts.push(post);
             $scope.clearPostForm();
+            $scope.checkNextPostsExist();
 
-            BlogService.getPosts().then(function (payload) {
+            BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
+                // added post should be diplayed (how to get it's id?)
                 $scope.posts = payload.data;
             });
         });
     };
 
     $scope.deletePost = function () {
-        BlogService.getPosts().then(function (payload) {
-            $scope.posts = payload.data;
+        var postId = $scope.posts[$scope.postIndexToDelete].id;
 
-            var postId = $scope.posts[$scope.postIndexToDelete].id;
+        BlogService.deletePost(postId).then(function () {
+            BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
+          	$scope.posts = payload.data;
+          	$scope.checkNextPostsExist();
+          	// should be loop for check nearest existing posts on page
+          	if ($scope.posts.length == 0) {
+          		$scope.pageNumber -= 1;
+          		startIndexOnPage = postsPerPage * $scope.pageNumber;
 
-            BlogService.deletePost(postId).then(function () {
-                $scope.posts.splice($scope.postIndexToDelete, 1);
-            });
+          	    BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
+                $scope.posts = payload.data;
+                $scope.checkNextPostsExist();
+            	});	
+          	}
+			});
         });
     };
 
@@ -36,18 +52,17 @@ app.controller('MainController', function ($scope, BlogService) {
     };
 
     $scope.updatePost = function () {
-        var post = {
+        var updatedPost = {
             "title": $scope.post.title,
             "text": $scope.post.text
         };
+		
+		var postId = $scope.posts[$scope.postIndexToUpdate].id;
 
-        BlogService.getPosts().then(function (payload) {
-            $scope.posts = payload.data;
-
-            var postId = $scope.posts[$scope.postIndexToUpdate].id;
-
-            BlogService.updatePost(postId, post).then(function () {
-                $scope.posts[$scope.postIndexToUpdate] = post;
+        BlogService.updatePost(postId, updatedPost).then(function () {
+        	BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
+                $scope.posts = payload.data;
+            	$scope.checkNextPostsExist();
             });
         });
     };
@@ -56,16 +71,13 @@ app.controller('MainController', function ($scope, BlogService) {
         $scope.displayAddPostButton = false;
         $scope.displayPostEditForm = true;
         $scope.postIndexToUpdate = index;
-        BlogService.getPosts().then(function (payload) {
-            $scope.posts = payload.data;
 
-            var filledInForm = {
+        var filledInForm = {
                 "title": $scope.posts[index].title,
                 "text": $scope.posts[index].text
             };
 
-            $scope.post = filledInForm;
-        });
+        $scope.post = filledInForm;
     };
 
     $scope.clearPostForm = function () {
@@ -76,5 +88,23 @@ app.controller('MainController', function ($scope, BlogService) {
 
         $scope.postForm.$setPristine();
         $scope.post = defaultForm;
+    };
+
+    $scope.getNextOrPrevPosts = function (option) {
+    	if (option == "next") $scope.pageNumber += 1;
+    	else $scope.pageNumber -= 1;
+
+    	startIndexOnPage = postsPerPage * $scope.pageNumber;
+
+    	BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
+    		$scope.posts = payload.data; 
+    		$scope.checkNextPostsExist(); 		
+    	});
+    };
+
+    $scope.checkNextPostsExist = function () {
+    	BlogService.getPosts(postsPerPage * ($scope.pageNumber + 1), postsPerPage).then(function (payload) {
+    		$scope.isNextPostsExist = (payload.data.length > 0 ? true: false);
+    	});
     };
 });

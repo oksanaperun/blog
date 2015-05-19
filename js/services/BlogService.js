@@ -1,8 +1,8 @@
 app.service('BlogService', function ($http) {
 
-    this.getPosts = function () {
+    this.getPosts = function (startIndex, length) {
         return $http({
-            url: 'http://localhost:3003/api/posts?begin=0&length=10',
+            url: 'http://localhost:3003/api/posts?begin=' + startIndex + '&length=' + length,
             method: 'GET'
         });
     };
