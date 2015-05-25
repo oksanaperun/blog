@@ -7,6 +7,9 @@
 </div>
 
 <h2>Comments <span ng-show="comments.length>0" class="badge comment-badge">{{comments.length}}</span></h2>
+
+<div class="alert alert-warning" role="alert" ng-show="isWarning">{{warningMessage}}</div>
+
 <ul>
     <li ng-repeat="comment in comments">
         <div ng-show="!displaycommentEditForm">
@@ -28,7 +31,7 @@
     </li>
 </ul>
 
-<button class="btn btn-default" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false">
+<button class="btn btn-default" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false; isWarning=false">
     Add comment
 </button>
 

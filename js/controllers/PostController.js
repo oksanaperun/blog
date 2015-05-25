@@ -22,9 +22,13 @@ app.controller('PostController', function ($routeParams, $scope, BlogService) {
         BlogService.getPostComments($routeParams.id).then(function (payload) {
             $scope.comments = payload.data;
 
-            var commentId = $scope.comments[index].id;
+            var commentId = ($scope.comments[index] ? $scope.comments[index].id : '');
 
-            BlogService.deleteComment($routeParams.id, commentId).then(function () {
+            if (!commentId) {
+                $scope.isWarning = true;
+                // add autoscroll to warning
+                $scope.warningMessage = 'Seems, your comment is already deleted.';
+            } else BlogService.deleteComment($routeParams.id, commentId).then(function () {
                 $scope.comments.splice(index, 1);
             });
         });
@@ -39,9 +43,12 @@ app.controller('PostController', function ($routeParams, $scope, BlogService) {
         BlogService.getPostComments($routeParams.id).then(function (payload) {
             $scope.comments = payload.data;
 
-            var commentId = $scope.comments[$scope.commentIndexToUpdate].id;
+            var commentId =($scope.comments[$scope.commentIndexToUpdate] ? $scope.comments[$scope.commentIndexToUpdate].id : '');
 
-            BlogService.updateComment($routeParams.id, commentId, comment).then(function () {
+            if (!commentId) {
+                $scope.isWarning = true;
+                $scope.warningMessage = "Seems, your comment doesn't exist any more.";
+            } else BlogService.updateComment($routeParams.id, commentId, comment).then(function () {
                 $scope.comments[$scope.commentIndexToUpdate] = comment;
             });
         });
