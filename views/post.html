@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<h3>Your comments</h3>
+<h2>Comments <span ng-show="comments.length>0" class="badge comment-badge">{{comments.length}}</span></h2>
 <ul>
     <li ng-repeat="comment in comments">
         <div ng-show="!displaycommentEditForm">
