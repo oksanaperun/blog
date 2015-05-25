@@ -11,6 +11,10 @@ app.config(function ($routeProvider) {
             controller: 'PostController',
             templateUrl: 'views/post.html'
         })
+        .when('/error', {
+            controller: 'ErrorPageController',
+            templateUrl: 'views/error.html'
+        })
         .otherwise({
             redirectTo: '/'
         })
