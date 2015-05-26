@@ -1,0 +1,29 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "client part of the blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oksanaperun/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "rest",
+    "client",
+    "angular"
+  ],
+  "author": "Oksana Perun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oksanaperun/blog/issues"
+  },
+  "homepage": "https://github.com/oksanaperun/blog",
+  "dependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5"
+  }
+}

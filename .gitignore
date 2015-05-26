@@ -1,2 +1,5 @@
 # Dependency directory
 vnd
+
+# Node modules
+node_modules
