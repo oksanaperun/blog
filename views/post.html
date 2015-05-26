@@ -24,7 +24,7 @@
             <a class="pull-right" href="" title="To delete comment">
                 <img class="menu-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
             </a>
-            <a class="pull-right" href="" title="To edit comment">
+            <a class="pull-right" href="#commentForm" title="To edit comment" du-smooth-scroll>
                 <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
             </a>
         </div>
@@ -49,7 +49,7 @@
         <button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && !displayCommentEditForm" ng-click="addComment(); displayAddCommentButton=true">
             Post
         </button>
-        <button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && displayCommentEditForm" ng-click="updateComment(); displayAddCommentButton=true; displayCommentEditForm=false">
+        <button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && displayCommentEditForm" ng-click="updateComment(); displayAddCommentButton=true; displayCommentEditForm=false; scrollToEditedComment()">
             Update
         </button>
         <button class="btn btn-default" ng-show="!displayAddCommentButton || displayCommentEditForm" ng-click="clearCommentForm(); displayAddCommentButton=true; displayCommentEditForm=false">

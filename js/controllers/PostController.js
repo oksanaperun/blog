@@ -1,4 +1,4 @@
-app.controller('PostController', function ($routeParams, $scope, BlogService) {
+app.controller('PostController', function ($routeParams, $scope, $document, BlogService) {
     BlogService.getPostDetails($routeParams.id).then(function (payload) {
         $scope.post = payload.data;
         BlogService.getPostComments($routeParams.id).then(function (payload) {
@@ -79,5 +79,13 @@ app.controller('PostController', function ($routeParams, $scope, BlogService) {
 
         $scope.commentForm.$setPristine();
         $scope.comment = defaultForm;
+    };
+
+    $scope.scrollToEditedComment = function () {
+        var duration = 1000,
+            offset = 10,
+            editedComment = angular.element(document.querySelectorAll('[ng-repeat="comment in comments"]')[$scope.commentIndexToUpdate]);
+
+        $document.scrollToElement(editedComment, offset, duration);
     };
 });
