@@ -24,6 +24,8 @@
   "homepage": "https://github.com/oksanaperun/blog",
   "dependencies": {
     "chai": "^2.3.0",
-    "mocha": "^2.2.5"
+    "chromedriver": "^2.15.1",
+    "mocha": "^2.2.5",
+    "protractor": "^2.1.0"
   }
 }
