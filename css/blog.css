@@ -197,3 +197,7 @@ li {
 a.blog-post-title, a.a-in-footer {
   text-decoration: none;
 }
+
+.error-message {
+  margin-top: 130px;
+}
