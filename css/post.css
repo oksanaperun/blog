@@ -9,3 +9,24 @@
 .comment-badge {
 	vertical-align: middle;
 }
+
+.post-title {
+  font-size: -webkit-xxx-large;
+  color: deepskyblue;
+  font-family: inherit;
+  margin-top: 20px;
+}
+
+.post-created-info {
+  font-style: italic;
+  font-family: -webkit-pictograph;
+  font-size: medium;
+}
+
+.post-text {
+  color: cornflowerblue;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: inherit;
+  font-size: 20px;
+}
