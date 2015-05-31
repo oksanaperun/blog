@@ -7,6 +7,9 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
     });
 
     $scope.addComment = function () {
+        $scope.validateCommentForm();
+        
+        if ($scope.isCommentFormValid) {
         var date = new Date(),
             comment = {
             "summary": $scope.comment.summary,
@@ -18,7 +21,9 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         BlogService.addComment($routeParams.id, comment).then(function () {
             $scope.comments.push(comment);
             $scope.clearCommentForm();
+            $scope.displayAddCommentButton = true;
         });
+        }
     };
 
     $scope.deleteComment = function (index) {
@@ -38,6 +43,9 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
     };
 
     $scope.updateComment = function () {
+        $scope.validateCommentForm();
+
+        if ($scope.isCommentFormValid) {
         var comment = {
             "summary": $scope.comment.summary,
             "text": $scope.comment.text
@@ -53,8 +61,13 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
                 $scope.warningMessage = "Seems, your comment doesn't exist any more.";
             } else BlogService.updateComment($routeParams.id, commentId, comment).then(function () {
                 $scope.comments[$scope.commentIndexToUpdate] = comment;
+                $scope.displayAddCommentButton = true; 
+                $scope.displayCommentEditForm = false; 
+                $scope.scrollToEditedComment();
+                $scope.clearCommentForm();
             });
         });
+    }
     };
 
     $scope.showCommentFormWithCommentData = function (index) {
@@ -82,6 +95,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
 
         $scope.commentForm.$setPristine();
         $scope.comment = defaultForm;
+        $scope.requiredSummaryErrorStyle = {};
     };
 
     $scope.scrollToEditedComment = function () {
@@ -90,5 +104,24 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
             editedComment = angular.element(document.querySelectorAll('[ng-repeat="comment in comments"]')[$scope.commentIndexToUpdate]);
 
         $document.scrollToElement(editedComment, offset, duration);
+    };
+
+    $scope.validateCommentForm = function () {
+        if ($scope.comment == undefined || !$scope.comment.summary) {
+            $scope.isCommentFormValid = false;
+            $scope.requiredSummaryErrorStyle = {'border-color':'red'};
+        }
+        else { 
+            $scope.isCommentFormValid = true;
+            $scope.requiredSummaryErrorStyle = {};
+        }
+    };
+
+    $scope.cancelPostComment = function () {
+        $scope.clearCommentForm(); 
+        $scope.displayAddCommentButton = true; 
+        $scope.displayCommentEditForm = false; 
+        $scope.isCommentFormValid = true;
+        $scope.requiredSummaryErrorStyle = {};
     };
 });

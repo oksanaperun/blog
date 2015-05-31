@@ -33,16 +33,20 @@
 <div ng-show="displayAddPostButton">
     <ul class="blog-posts-list">
         <li ng-repeat="post in posts" ng-init="postToDeleteIndex=-1">
-            <div class="blog-post">
-                <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
-                <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
-                <p>{{post.text}}</p>
-                <a class="pull-right" href="" title="To delete post">
-                    <img class="menu-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="setPostIndexToDelete($index)">
-                </a>
-                <a class="pull-right" href="#postForm" title="To edit post" du-smooth-scroll>
-                    <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showPostFormWithPostData($index)">
-                </a>
+            <div class="blog-post row">
+                <div class="col-md-8">
+                    <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
+                    <p class="blog-post-meta">{{post.timestamp | date}} {{post.author}}</p>
+                    <p>{{post.text}}</p>
+                </div>
+                <div class="col-md-3">
+                    <a class="pull-right" href="" title="To delete post">
+                        <img class="menu-btn" src="../img/delete-button.png" alt="delete button" data-toggle="modal" href="#confirmDeletingModal" ng-click="setPostIndexToDelete($index)">
+                    </a>
+                    <a class="pull-right" href="#postForm" title="To edit post" du-smooth-scroll>
+                        <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showPostFormWithPostData($index)">
+                    </a>
+                </div>
             </div>
         </li>
     </ul>

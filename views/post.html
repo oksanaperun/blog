@@ -39,28 +39,29 @@
     </li>
 </ul>
 
-<button id="addCommentBtn" class="btn btn-default" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false; isWarning=false">
+<button class="btn btn-default comment-primary-btn" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false; isWarning=false">
     Add comment
 </button>
 
 <!-- Form -->
-<form name="commentForm" class="form-horizontal comment" role="form">
-    <label ng-show="!displayAddCommentButton && !displayCommentEditForm">New comment</label>
-    <label ng-show="displayCommentEditForm">Your comment</label>
+<form name="commentForm" class="form-horizontal comment" role="form" ng-init="isCommentFormValid=true">
+    <label class="comment-label" ng-show="!displayAddCommentButton && !displayCommentEditForm">New comment</label>
+    <label class="comment-label" ng-show="displayCommentEditForm">Your comment</label>
     <div class="form-group" ng-show="!displayAddCommentButton">
-        <input ng-model="comment.summary" class="form-control" placeholder="Summary">
+        <input name="summary" ng-model="comment.summary" class="form-control" placeholder="Summary" ng-style="requiredSummaryErrorStyle" ng-change="validateCommentForm()">
     </div>
     <div class="form-group" ng-show="!displayAddCommentButton">
         <textarea ng-model="comment.text" class="form-control" rows="3" placeholder="Your comment"></textarea>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && !displayCommentEditForm" ng-click="addComment(); displayAddCommentButton=true">
+        <div class="comment-required-message" ng-show="!isCommentFormValid">Please, fill in summary.</div>
+        <button type="submit" class="btn btn-default comment-primary-btn" ng-show="!displayAddCommentButton && !displayCommentEditForm" ng-click="addComment()">
             Post
         </button>
-        <button type="submit" class="btn btn-default" ng-show="!displayAddCommentButton && displayCommentEditForm" ng-click="updateComment(); displayAddCommentButton=true; displayCommentEditForm=false; scrollToEditedComment()">
+        <button type="submit" class="btn btn-default comment-primary-btn" ng-show="!displayAddCommentButton && displayCommentEditForm" ng-click="updateComment()">
             Update
         </button>
-        <button class="btn btn-default" ng-show="!displayAddCommentButton || displayCommentEditForm" ng-click="clearCommentForm(); displayAddCommentButton=true; displayCommentEditForm=false">
+        <button class="btn btn-default" ng-show="!displayAddCommentButton || displayCommentEditForm" ng-click="cancelPostComment()">
             Cancel
         </button>
     </div>
