@@ -10,5 +10,9 @@ exports.config = {
 	capabilities: {
 		'browserName': 'chrome'
 	},
-	specs: ['*.spec.js']
+	specs: ['*.spec.js'],
+	params: {
+		server: 'localhost',
+		port: 8080
+	}
 };
