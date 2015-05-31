@@ -1,16 +1,15 @@
 <div class="blog-header">
     <h1 class="blog-title">Oksana's Blog</h1>
-    <p class="lead blog-description">The storage of your thoughts.</p>
 </div>
 
-<button class="btn btn-default post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
+<button id="addPostBtn" class="btn btn-default post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
     Add post
 </button>
 
 <!-- Form -->
 <form name="postForm" class="form-horizontal" role="form" ng-init="isPostFormValid=true">
-    <label ng-show="!displayAddPostButton && !displayPostEditForm">New post</label>
-    <label ng-show="!displayAddPostButton && displayPostEditForm">Your post</label>
+    <label class="post-label" ng-show="!displayAddPostButton && !displayPostEditForm">New post</label>
+    <label class="post-label" ng-show="!displayAddPostButton && displayPostEditForm">Your post</label>
     <div class="form-group" ng-show="!displayAddPostButton">
         <input ng-model="post.title" class="form-control" placeholder="Title" ng-style="requiredTitleErrorStyle" ng-change="validatePostForm()">
     </div>
@@ -36,9 +35,9 @@
         <li ng-repeat="post in posts" ng-init="postToDeleteIndex=-1">
             <div class="blog-post row">
                 <div class="col-md-8">
-                    <h2 class="blog-post-title"><a href="#/posts/{{post.id}}">{{post.title}}</a></h2>
+                    <h2><a class="blog-post-title" href="#/posts/{{post.id}}">{{post.title}}</a></h2>
                     <p class="blog-post-meta">by {{post.author}} on {{post.timestamp | date}}</p>
-                    <p>{{post.text}}</p>
+                    <p class="blog-post-text">{{post.text}}</p>
                 </div>
                 <div class="col-md-3">
                     <a class="pull-right" href="" title="To delete post">

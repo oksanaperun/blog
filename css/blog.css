@@ -1,7 +1,7 @@
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #555;
-  background-image: url(../img/pure-blue-sky.jpg);
+  background-image: url(../img/small-sky-clouds.jpg);
   background-repeat: repeat-x;
 }
 
@@ -34,7 +34,7 @@ h6, .h6 {
  */
 
 .blog-masthead {
-  background-color: #0288FE;
+  background-color: #9BA0A4;
   -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
           box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
 }
@@ -81,10 +81,11 @@ h6, .h6 {
   padding-bottom: 20px;
 }
 .blog-title {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
+  color: dimgray;
 }
 .blog-description {
   font-size: 20px;
@@ -109,7 +110,7 @@ h6, .h6 {
 .sidebar-module-inset {
   padding: 15px;
   line-height: 10px;
-  color: yellowgreen;
+  color: dimgray;
 }
 .sidebar-module-inset p:last-child,
 .sidebar-module-inset ul:last-child,
@@ -141,12 +142,16 @@ h6, .h6 {
 .blog-post-title {
   margin-bottom: 5px;
   font-size: 40px;
+  color: darkslateblue;
 }
 .blog-post-meta {
   margin-bottom: 20px;
   color: #999;
 }
-
+.blog-post-text {
+  color: powderblue;
+  font-style: italic;
+}
 
 /*
  * Footer
@@ -155,7 +160,7 @@ h6, .h6 {
 .blog-footer {
   padding: 50px 0;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: darkslateblue;
   background-image: url(../img/sea-sand.jpg);
   background-repeat: repeat;
   font-weight: bold;
@@ -175,6 +180,20 @@ li {
 }
 
 .post-primary-btn {
-  background-color: lightblue;
+  color: #9BA0A4;
+  background-color: powderblue;
   font-family: initial;
+}
+
+#addPostBtn {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.post-label {
+  color: powderblue;
+}
+
+a.blog-post-title, a.a-in-footer {
+  text-decoration: none;
 }
