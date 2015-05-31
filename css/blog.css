@@ -108,8 +108,6 @@ h6, .h6 {
 }
 .sidebar-module-inset {
   padding: 15px;
-  background-image: url(../img/cloud-dark-small.png);
-  background-repeat: no-repeat;
   line-height: 10px;
   color: yellowgreen;
 }
