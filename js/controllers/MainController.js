@@ -13,9 +13,12 @@ app.controller('MainController', function ($scope, BlogService) {
         $scope.validatePostForm();
 
         if ($scope.isPostFormValid) {
-        var post = {
+        var date = new Date(),
+            post = {
             "title": $scope.post.title,
-            "text": $scope.post.text
+            "text": ($scope.post.text == undefined ? "" : $scope.post.text),
+            "author": "user",
+            "timestamp": date.getTime()
         };
 
         BlogService.addPost(post).then(function () {

@@ -13,7 +13,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         var date = new Date(),
             comment = {
             "summary": $scope.comment.summary,
-            "text": $scope.comment.text,
+            "text": ($scope.comment.text == undefined ? "" : $scope.comment.text),
             "author": "user",
             "timestamp": date.getTime()
         };

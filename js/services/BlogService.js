@@ -40,7 +40,8 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts',
             method: 'POST',
-            data: '{"text":"' + post.text + '","title":"' + post.title + '"}',
+            data: '{"text":"' + post.text + '","title":"' + post.title + 
+            '","author":"' + post.author + '","timestamp":"' + post.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
         }).error(function (data) {
              ErrorMessageService.setMessageValue("we couldn't add post");
