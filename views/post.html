@@ -6,32 +6,40 @@
     </div>
 </div>
 
-<h2>Comments <span ng-show="comments.length>0" class="badge comment-badge">{{comments.length}}</span></h2>
+<h2 class="comments-list-header" ng-show="comments.length>0">Comments <span class="badge comment-badge">{{comments.length}}</span></h2>
 
 <div class="alert alert-warning" role="alert" ng-show="isWarning">{{warningMessage}}</div>
 
 <ul>
-    <li ng-repeat="comment in comments">
-        <div ng-show="!displaycommentEditForm">
-            <a>
-                <img class="avatar" src="../img/noavatar.png" alt="no avatar">
-            </a>
-
-            <div>
-                <h4>{{comment.summary}}</h4>
-                {{comment.text}}
+    <li class="comments-list" ng-repeat="comment in comments">
+        <div class="row" ng-show="!displaycommentEditForm">
+            <div class="col-md-3">
+                <a>
+                    <img class="avatar" src="../img/noavatar.png" alt="no avatar">
+                </a>
+                <div class="comment-created-info">
+                    <p>{{comment.author}}</p> 
+                    <p>{{comment.timestamp | date}}</p>
+                </div>
             </div>
+
             <a class="pull-right" href="" title="To delete comment">
                 <img class="menu-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
             </a>
             <a class="pull-right" href="#commentForm" title="To edit comment" du-smooth-scroll>
                 <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
             </a>
+
+            <div class="col-md-8">
+                <h4 class="comment-summary">{{comment.summary}}</h4>
+                <div class="comment-text">{{comment.text}}</div>
+            </div>
+
         </div>
     </li>
 </ul>
 
-<button class="btn btn-default" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false; isWarning=false">
+<button id="addCommentBtn" class="btn btn-default" ng-init="displayAddCommentButton=true" ng-show="displayAddCommentButton" ng-click="displayAddCommentButton=false; isWarning=false">
     Add comment
 </button>
 

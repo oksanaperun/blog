@@ -7,9 +7,12 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
     });
 
     $scope.addComment = function () {
-        var comment = {
+        var date = new Date(),
+            comment = {
             "summary": $scope.comment.summary,
-            "text": $scope.comment.text
+            "text": $scope.comment.text,
+            "author": "user",
+            "timestamp": date.getTime()
         };
 
         BlogService.addComment($routeParams.id, comment).then(function () {

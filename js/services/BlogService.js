@@ -51,7 +51,8 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + postId + '/comments',
             method: 'POST',
-            data: '{"text":"' + comment.text + '","summary":"' + comment.summary + '"}',
+            data: '{"text":"' + comment.text + '","summary":"' + comment.summary + 
+            '","author":"' + comment.author + '","timestamp":"' + comment.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
         }).error(function (data) {
              ErrorMessageService.setMessageValue("we couldn't add comment to the post");
