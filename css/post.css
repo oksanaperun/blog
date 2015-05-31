@@ -12,7 +12,7 @@
 
 .post-title {
   font-size: -webkit-xxx-large;
-  color: deepskyblue;
+  color: darkslateblue;
   font-family: inherit;
   margin-top: 20px;
 }
@@ -29,4 +29,37 @@
   margin-bottom: 30px;
   font-family: inherit;
   font-size: 20px;
+}
+
+.comments-list-header {
+	font-family: serif;
+}
+
+.comments-list {
+	padding-bottom: 25px;
+	background-image: url(../img/cloud.png);
+	background-repeat: no-repeat;
+}
+
+.comment-created-info {
+  font-style: italic;
+  font-family: -webkit-pictograph;
+  font-size: small;
+  line-height: 10px;	
+}
+
+.comment-summary {
+  color: yellowgreen;
+  font-weight: bold;
+}
+
+.comment-text {	
+  font-size: 15px;
+  font-style: italic;
+}
+
+#addCommentBtn {
+  background-color: yellowgreen;
+  color: white;
+  font-family: initial;
 }
