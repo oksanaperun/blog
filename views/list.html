@@ -3,28 +3,29 @@
     <p class="lead blog-description">The storage of your thoughts.</p>
 </div>
 
-<button class="btn btn-default" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
+<button class="btn btn-default post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
     Add post
 </button>
 
 <!-- Form -->
-<form name="postForm" class="form-horizontal" role="form">
+<form name="postForm" class="form-horizontal" role="form" ng-init="isPostFormValid=true">
     <label ng-show="!displayAddPostButton && !displayPostEditForm">New post</label>
     <label ng-show="!displayAddPostButton && displayPostEditForm">Your post</label>
     <div class="form-group" ng-show="!displayAddPostButton">
-        <input ng-model="post.title" class="form-control" placeholder="Title">
+        <input ng-model="post.title" class="form-control" placeholder="Title" ng-style="requiredTitleErrorStyle" ng-change="validatePostForm()">
     </div>
     <div class="form-group" ng-show="!displayAddPostButton">
         <textarea ng-model="post.text" class="form-control" rows="3" placeholder="Your thoughts"></textarea>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-default" ng-show="!displayAddPostButton && !displayPostEditForm" ng-click="addPost(); displayAddPostButton=true; displayPostEditForm=false">
-            Post
+        <div class="required-message" ng-show="!isPostFormValid">Please, fill in title.</div>
+        <button type="submit" class="btn btn-default post-primary-btn" ng-show="!displayAddPostButton && !displayPostEditForm" ng-click="addPost()">
+            Add
         </button>
-        <button type="submit" class="btn btn-default" ng-show="!displayAddPostButton && displayPostEditForm" ng-click="updatePost(); displayAddPostButton=true; displayPostEditForm=false">
+        <button type="submit" class="btn btn-default post-primary-btn" ng-show="!displayAddPostButton && displayPostEditForm" ng-click="updatePost()">
             Update
         </button>
-        <button type="button" class="btn btn-default" ng-show="!displayAddPostButton" ng-click="clearPostForm(); displayAddPostButton=true; displayPostEditForm=false">
+        <button type="button" class="btn btn-default" ng-show="!displayAddPostButton" ng-click="cancelPostChanges()">
             Cancel
         </button>
     </div>

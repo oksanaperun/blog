@@ -54,7 +54,7 @@
         <textarea ng-model="comment.text" class="form-control" rows="3" placeholder="Your comment"></textarea>
     </div>
     <div class="form-group">
-        <div class="comment-required-message" ng-show="!isCommentFormValid">Please, fill in summary.</div>
+        <div class="required-message" ng-show="!isCommentFormValid">Please, fill in summary.</div>
         <button type="submit" class="btn btn-default comment-primary-btn" ng-show="!displayAddCommentButton && !displayCommentEditForm" ng-click="addComment()">
             Post
         </button>

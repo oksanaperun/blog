@@ -10,6 +10,9 @@ app.controller('MainController', function ($scope, BlogService) {
     });
 
     $scope.addPost = function () {
+        $scope.validatePostForm();
+
+        if ($scope.isPostFormValid) {
         var post = {
             "title": $scope.post.title,
             "text": $scope.post.text
@@ -17,6 +20,8 @@ app.controller('MainController', function ($scope, BlogService) {
 
         BlogService.addPost(post).then(function () {
             $scope.clearPostForm();
+            $scope.displayAddPostButton = true; 
+            $scope.displayPostEditForm = false;
             $scope.checkNextPostsExist();
 
             BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
@@ -24,6 +29,7 @@ app.controller('MainController', function ($scope, BlogService) {
                 $scope.posts = payload.data;
             });
         });
+    }
     };
 
     $scope.deletePost = function () {
@@ -52,6 +58,9 @@ app.controller('MainController', function ($scope, BlogService) {
     };
 
     $scope.updatePost = function () {
+        $scope.validatePostForm();
+
+        if ($scope.isPostFormValid) {
         var updatedPost = {
             "title": $scope.post.title,
             "text": $scope.post.text
@@ -60,11 +69,16 @@ app.controller('MainController', function ($scope, BlogService) {
 		var postId = $scope.posts[$scope.postIndexToUpdate].id;
 
         BlogService.updatePost(postId, updatedPost).then(function () {
+            $scope.clearPostForm();
+            $scope.displayAddPostButton = true; 
+            $scope.displayPostEditForm = false;
+
         	BlogService.getPosts(startIndexOnPage, postsPerPage).then(function (payload) {
                 $scope.posts = payload.data;
             	$scope.checkNextPostsExist();
             });
         });
+    }
     };
 
     $scope.showPostFormWithPostData = function (index) {
@@ -88,6 +102,7 @@ app.controller('MainController', function ($scope, BlogService) {
 
         $scope.postForm.$setPristine();
         $scope.post = defaultForm;
+        $scope.requiredTitleErrorStyle = {};
     };
 
     $scope.getNextOrPrevPosts = function (option) {
@@ -107,4 +122,23 @@ app.controller('MainController', function ($scope, BlogService) {
     		$scope.isNextPostsExist = (payload.data.length > 0 ? true: false);
     	});
     };
+
+    $scope.validatePostForm = function () {
+        if ($scope.post == undefined || !$scope.post.title) {
+            $scope.isPostFormValid = false;
+            $scope.requiredTitleErrorStyle = {'border-color':'red'};
+        }
+        else { 
+            $scope.isPostFormValid = true;
+            $scope.requiredTitleErrorStyle = {};
+        }
+    };
+
+    $scope.cancelPostChanges = function () {
+        $scope.clearPostForm(); 
+        $scope.displayAddPostButton = true; 
+        $scope.displayPostEditForm = false
+        $scope.isPostFormValid = true;
+        $scope.requiredTitleErrorStyle = {};
+    };    
 });

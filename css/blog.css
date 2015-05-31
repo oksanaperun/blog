@@ -168,3 +168,13 @@ h6, .h6 {
 li {
   list-style: none;
 }
+
+.required-message {
+  color: red;
+  font-family: initial;
+}
+
+.post-primary-btn {
+  background-color: lightblue;
+  font-family: initial;
+}
