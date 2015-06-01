@@ -48,7 +48,9 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         if ($scope.isCommentFormValid) {
         var comment = {
             "summary": $scope.comment.summary,
-            "text": $scope.comment.text
+            "text": $scope.comment.text,
+            "author": $scope.comments[$scope.commentIndexToUpdate].author,
+            "timestamp": $scope.comments[$scope.commentIndexToUpdate].timestamp
         };
 
         BlogService.getPostComments($routeParams.id).then(function (payload) {

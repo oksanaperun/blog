@@ -82,7 +82,8 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + id,
             method: 'PUT',
-            data: '{"text":"' + post.text + '","title":"' + post.title + '"}',
+            data: '{"text":"' + post.text + '","title":"' + post.title + 
+            '","author":"' + post.author + '","timestamp":"' + post.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
         }).error(function (data) {
              ErrorMessageService.setMessageValue("we couldn't update post details");
@@ -93,7 +94,8 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + postId + '/comments/' + commentId,
             method: 'PUT',
-            data: '{"text":"' + comment.text + '","summary":"' + comment.summary + '"}',
+            data: '{"text":"' + comment.text + '","summary":"' + comment.summary + 
+            '","author":"' + comment.author + '","timestamp":"' + comment.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
         }).error(function (data) {
              ErrorMessageService.setMessageValue("we couldn't update comment details");

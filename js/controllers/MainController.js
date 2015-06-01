@@ -66,7 +66,9 @@ app.controller('MainController', function ($scope, BlogService) {
         if ($scope.isPostFormValid) {
         var updatedPost = {
             "title": $scope.post.title,
-            "text": $scope.post.text
+            "text": $scope.post.text,
+            "author": $scope.posts[$scope.postIndexToUpdate].author,
+            "timestamp": $scope.posts[$scope.postIndexToUpdate].timestamp
         };
 		
 		var postId = $scope.posts[$scope.postIndexToUpdate].id;
