@@ -7,7 +7,7 @@ describe('Blog post page', function() {
 	});
 
     it('should be opened', function () {
-      var firstPostTitle = element.all(by.css('.blog-post-title a')).get(0);
+      var firstPostTitle = element.all(by.css('.blog-post-title')).get(0);
 
       firstPostTitle.click();
 
