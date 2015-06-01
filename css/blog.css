@@ -25,6 +25,7 @@ h6, .h6 {
 @media (min-width: 1200px) {
   .container {
     width: 970px;
+    z-index: 2;
   }
 }
 
@@ -34,6 +35,9 @@ h6, .h6 {
  */
 
 .blog-masthead {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
   background-color: #9BA0A4;
   -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
           box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
@@ -100,6 +104,7 @@ h6, .h6 {
 .blog-main {
   font-size: 18px;
   line-height: 1.5;
+  margin-top: 40px;
 }
 
 /* Sidebar modules for boxing content */
@@ -111,6 +116,7 @@ h6, .h6 {
   padding: 15px;
   line-height: 10px;
   color: dimgray;
+  margin-top: 40px;
 }
 .sidebar-module-inset p:last-child,
 .sidebar-module-inset ul:last-child,
@@ -129,6 +135,8 @@ h6, .h6 {
   padding: 10px 20px;
   text-align: center;
   border-radius: 30px;
+  background-color: #CFC7C4;
+  color: #999;
 }
 
 
@@ -149,7 +157,7 @@ h6, .h6 {
   color: #999;
 }
 .blog-post-text {
-  color: powderblue;
+  color: #51C6EB;
   font-style: italic;
 }
 
@@ -158,7 +166,7 @@ h6, .h6 {
  */
 
 .blog-footer {
-  padding: 50px 0;
+  padding: 30px 0;
   text-align: center;
   background-color: darkslateblue;
   background-image: url(../img/sea-sand.jpg);
@@ -180,8 +188,11 @@ li {
 }
 
 .post-primary-btn {
-  color: #9BA0A4;
   background-color: powderblue;
+  
+}
+.post-btn {
+  color: #9BA0A4;
   font-family: initial;
 }
 
@@ -191,7 +202,7 @@ li {
 }
 
 .post-label {
-  color: powderblue;
+  color: #51C6EB;
 }
 
 a.blog-post-title, a.a-in-footer {

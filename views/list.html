@@ -2,7 +2,7 @@
     <h1 class="blog-title">Oksana's Blog</h1>
 </div>
 
-<button id="addPostBtn" class="btn btn-default post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
+<button id="addPostBtn" class="btn btn-default post-btn post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
     Add post
 </button>
 
@@ -18,13 +18,13 @@
     </div>
     <div class="form-group">
         <div class="required-message" ng-show="!isPostFormValid">Please, fill in title.</div>
-        <button type="submit" class="btn btn-default post-primary-btn" ng-show="!displayAddPostButton && !displayPostEditForm" ng-click="addPost()">
+        <button type="submit" class="btn btn-default post-btn post-primary-btn" ng-show="!displayAddPostButton && !displayPostEditForm" ng-click="addPost()">
             Add
         </button>
-        <button type="submit" class="btn btn-default post-primary-btn" ng-show="!displayAddPostButton && displayPostEditForm" ng-click="updatePost()">
+        <button type="submit" class="btn btn-default post-btn post-primary-btn" ng-show="!displayAddPostButton && displayPostEditForm" ng-click="updatePost()">
             Update
         </button>
-        <button type="button" class="btn btn-default" ng-show="!displayAddPostButton" ng-click="cancelPostChanges()">
+        <button type="button" class="btn btn-default post-btn" ng-show="!displayAddPostButton" ng-click="cancelPostChanges()">
             Cancel
         </button>
     </div>
@@ -57,16 +57,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3>Confirm action</h3>
+                    <h3 class="blog-post-meta">Confirm the action</h3>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body blog-post-text">
                     Are you about to delete a post?
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="deletePost()">
+                    <button type="submit" class="btn btn-default post-btn post-primary-btn" data-dismiss="modal" ng-click="deletePost()">
                         Yes
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default post-btn" data-dismiss="modal">
                         No
                     </button>
                 </div>

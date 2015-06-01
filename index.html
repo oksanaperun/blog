@@ -15,7 +15,7 @@
 
 <ng-include src="'views/topMenu.html'"></ng-include>
 
-<div class="container">
+<div id="topContainer" class="container">
     <div class="row">
         <div class="col-sm-8 blog-main">
             <div ng-view></div>
@@ -28,9 +28,9 @@
         </div>
     </div>
 
-    <ng-include src="'views/footer.html'"></ng-include>
-
 </div>
+
+<ng-include src="'views/footer.html'"></ng-include>
 
 <script src="vnd/angular/angular.js"></script>
 <script src="vnd/angular-route/angular-route.js"></script>
