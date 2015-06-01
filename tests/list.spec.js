@@ -55,6 +55,25 @@ describe('Blog', function() {
       });
     });
 
+    it('post should not be added without summary', function() {
+      addPostButton.click();
+
+      var postForm = element(by.css('.form-horizontal'));
+
+      postForm.isDisplayed();
+
+      var text = element(by.model('post.text')),
+          addButton = element(by.buttonText('Add'));
+
+      text.clear().sendKeys('This is test text');
+      addButton.click();
+
+      var errorMessage = element(by.css('.required-message'));
+
+      assert.ok(errorMessage.isDisplayed(), 'Check error message is displayed');
+      assert.ok(postForm.isDisplayed(), 'Check post form is not hidden');
+    });
+
     it('post details should be pre-populated when updating', function() {
       var editFirstPostButton = element.all(by.css('[title="To edit post"]')).get(0);
 
@@ -119,7 +138,6 @@ describe('Blog', function() {
 
       element.all(by.repeater('post in posts')).then(function (posts) {
         countOfPostsBeforeDeleting = posts.length;
-        console.log(countOfPostsBeforeDeleting); 
       });  
 
       openConfirmationDeletingDialog(1);
