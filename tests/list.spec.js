@@ -109,7 +109,6 @@ describe('Blog', function() {
       text.clear().sendKeys('This is my first blog post updated');
       updateButton.click();
 
-      addPostButton.isDisplayed();
       element.all(by.css('.blog-post-title')).get(1).getText(function (title) {
         assert.equal(title, 'This is a title updated', 'Check title of the post after updating');
       });
