@@ -55,7 +55,7 @@ describe('Blog', function() {
       });
     });
 
-    it('post should not be added without summary', function() {
+    it('post should not be added without title', function() {
       addPostButton.click();
 
       var postForm = element(by.css('.form-horizontal'));
