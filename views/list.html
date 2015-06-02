@@ -2,6 +2,8 @@
     <h1 class="blog-title">Oksana's Blog</h1>
 </div>
 
+<div class="alert alert-warning" role="alert" ng-show="isWarning">{{warningMessage}}</div>
+
 <button id="addPostBtn" class="btn btn-default post-btn post-primary-btn" ng-show="displayAddPostButton && !displayPostEditForm" ng-init="displayAddPostButton=true" ng-click="displayAddPostButton=false">
     Add post
 </button>

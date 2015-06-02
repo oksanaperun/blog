@@ -6,8 +6,10 @@
     </div>
 </div>
 
-<h2 class="comments-list-header" ng-show="comments.length>0">Comments <span class="badge comment-badge">{{comments.length}}</span></h2>
+<h2 class="comments-list-header" ng-show="comments.length>0">Comments <span class="badge comment-badge">{{comments.length}}</span>
+</h2>
 
+<div id="topWarning"></div>
 <div class="alert alert-warning" role="alert" ng-show="isWarning">{{warningMessage}}</div>
 
 <ul>
@@ -18,23 +20,21 @@
                     <img class="avatar" src="../img/noavatar.png" alt="no avatar">
                 </a>
                 <div class="comment-created-info">
-                    <p>{{comment.author}}</p> 
+                    <p>{{comment.author}}</p>
                     <p>{{comment.timestamp | date}}</p>
                 </div>
             </div>
-
             <a class="pull-right" href="" title="To delete comment">
-                <img class="menu-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
+                <img class="menu-btn" src="../img/delete-button.png" alt="delete button"
+                     ng-click="deleteComment($index)">
             </a>
             <a class="pull-right" href="#commentForm" title="To edit comment" du-smooth-scroll>
                 <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
             </a>
-
             <div class="col-md-8">
                 <h4 class="comment-summary">{{comment.summary}}</h4>
                 <div class="comment-text">{{comment.text}}</div>
             </div>
-
         </div>
     </li>
 </ul>

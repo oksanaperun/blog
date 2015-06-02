@@ -1,10 +1,13 @@
-app.controller('PostController', function ($routeParams, $scope, $document, BlogService) {
-    BlogService.getPostDetails($routeParams.id).then(function (payload) {
+app.controller('PostController', function ($routeParams, $scope, $document, $location, BlogService, ErrorMessageService) {
+    BlogService.getPost($routeParams.id).then(function (payload) {
         $scope.post = payload.data;
         $scope.getPostComments();
+    }, function () {
+        ErrorMessageService.setMessageValue("we couldn't get this post");
+        $location.url('/error');
     });
 
-    $scope.getPostComments = function() {
+    $scope.getPostComments = function () {
         BlogService.getPostComments($routeParams.id).then(function (payload) {
             $scope.comments = payload.data;
         }, function () {
@@ -42,10 +45,14 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         BlogService.getComment($routeParams.id, $scope.comments[index].id).then(function () {
             BlogService.deleteComment($routeParams.id, $scope.comments[index].id).then(function () {
                 $scope.getPostComments();
+            }, function () {
+                $scope.isWarning = true;
+                $scope.warningMessage = "Sorry, we couldn't delete this comment.";
+                $scope.scrollToWarning();
             });
         }, function () {
             $scope.isWarning = true;
-            $scope.warningMessage = "Seems, your comment is already deleted.";
+            $scope.warningMessage = "Seems, this comment is already deleted. Please, refresh the page.";
             $scope.scrollToWarning();
         });
     };
@@ -81,7 +88,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
                 });
             }, function () {
                 $scope.isWarning = true;
-                $scope.warningMessage = "Seems, your comment or post doesn't exist any more. Please, refresh page.";
+                $scope.warningMessage = "Seems, this comment or post doesn't exist any more. Please, refresh the page.";
                 $scope.scrollToWarning();
             });
         }
@@ -101,7 +108,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
             };
         }, function () {
             $scope.isWarning = true;
-            $scope.warningMessage = "Seems, your comment or post doesn't exist any more.Please, refresh page.";
+            $scope.warningMessage = "Seems, this comment or post doesn't exist any more. Please, refresh the page.";
             $scope.scrollToWarning();
         });
     };
@@ -119,8 +126,8 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
 
     $scope.scrollToWarning = function () {
         var duration = 500,
-            offset = 50,
-            warning = angular.element(document.getElementsByClassName('alert-warning'));
+            offset = 45,
+            warning = angular.element(document.getElementById('topWarning'));
 
         $document.scrollToElement(warning, offset, duration);
     };
