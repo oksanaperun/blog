@@ -1,44 +1,52 @@
 app.controller('PostController', function ($routeParams, $scope, $document, BlogService) {
     BlogService.getPostDetails($routeParams.id).then(function (payload) {
         $scope.post = payload.data;
+        $scope.getPostComments();
+    });
+
+    $scope.getPostComments = function() {
         BlogService.getPostComments($routeParams.id).then(function (payload) {
             $scope.comments = payload.data;
+        }, function () {
+            $scope.isWarning = true;
+            $scope.warningMessage = "Sorry, we couldn't get comments.";
+            $scope.scrollToWarning();
         });
-    });
+    };
 
     $scope.addComment = function () {
         $scope.validateCommentForm();
-        
-        if ($scope.isCommentFormValid) {
-        var date = new Date(),
-            comment = {
-            "summary": $scope.comment.summary,
-            "text": ($scope.comment.text == undefined ? "" : $scope.comment.text),
-            "author": "user",
-            "timestamp": date.getTime()
-        };
 
-        BlogService.addComment($routeParams.id, comment).then(function () {
-            $scope.comments.push(comment);
-            $scope.clearCommentForm();
-            $scope.displayAddCommentButton = true;
-        });
+        if ($scope.isCommentFormValid) {
+            var date = new Date(),
+                comment = {
+                    "summary": $scope.comment.summary,
+                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text),
+                    "author": "user",
+                    "timestamp": date.getTime()
+                };
+
+            BlogService.addComment($routeParams.id, comment).then(function () {
+                $scope.clearCommentForm();
+                $scope.displayAddCommentButton = true;
+                $scope.getPostComments();
+            }, function () {
+                $scope.isWarning = true;
+                $scope.warningMessage = "Sorry, we couldn't add your comment.";
+                $scope.scrollToWarning();
+            });
         }
     };
 
     $scope.deleteComment = function (index) {
-        BlogService.getPostComments($routeParams.id).then(function (payload) {
-            $scope.comments = payload.data;
-
-            var commentId = ($scope.comments[index] ? $scope.comments[index].id : '');
-
-            if (!commentId) {
-                $scope.isWarning = true;
-                // add autoscroll to warning
-                $scope.warningMessage = 'Seems, your comment is already deleted.';
-            } else BlogService.deleteComment($routeParams.id, commentId).then(function () {
-                $scope.comments.splice(index, 1);
+        BlogService.getComment($routeParams.id, $scope.comments[index].id).then(function () {
+            BlogService.deleteComment($routeParams.id, $scope.comments[index].id).then(function () {
+                $scope.getPostComments();
             });
+        }, function () {
+            $scope.isWarning = true;
+            $scope.warningMessage = "Seems, your comment is already deleted.";
+            $scope.scrollToWarning();
         });
     };
 
@@ -46,46 +54,55 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         $scope.validateCommentForm();
 
         if ($scope.isCommentFormValid) {
-        var comment = {
-            "summary": $scope.comment.summary,
-            "text": $scope.comment.text,
-            "author": $scope.comments[$scope.commentIndexToUpdate].author,
-            "timestamp": $scope.comments[$scope.commentIndexToUpdate].timestamp
-        };
+            BlogService.getComment($routeParams.id, $scope.commentIdToUpdate).then(function (payload) {
+                $scope.loadedComment = payload.data;
 
-        BlogService.getPostComments($routeParams.id).then(function (payload) {
-            $scope.comments = payload.data;
+                var comment = {
+                    "summary": $scope.comment.summary,
+                    "text": $scope.comment.text,
+                    "author": $scope.loadedComment.author,
+                    "timestamp": $scope.loadedComment.timestamp
+                };
 
-            var commentId =($scope.comments[$scope.commentIndexToUpdate] ? $scope.comments[$scope.commentIndexToUpdate].id : '');
+                BlogService.updateComment($routeParams.id, $scope.commentIdToUpdate, comment).then(function () {
+                    $scope.displayAddCommentButton = true;
+                    $scope.displayCommentEditForm = false;
+                    $scope.clearCommentForm();
 
-            if (!commentId) {
+                    BlogService.getPostComments($routeParams.id).then(function (payload) {
+                        $scope.comments = payload.data;
+
+                        for (var i = 0; i < $scope.comments.length; i++)
+                            if ($scope.comments[i].id == $scope.commentIdToUpdate)
+                                $scope.commentIndexUpdated = i;
+
+                        $scope.scrollToEditedComment();
+                    });
+                });
+            }, function () {
                 $scope.isWarning = true;
-                $scope.warningMessage = "Seems, your comment doesn't exist any more.";
-            } else BlogService.updateComment($routeParams.id, commentId, comment).then(function () {
-                $scope.comments[$scope.commentIndexToUpdate] = comment;
-                $scope.displayAddCommentButton = true; 
-                $scope.displayCommentEditForm = false; 
-                $scope.scrollToEditedComment();
-                $scope.clearCommentForm();
+                $scope.warningMessage = "Seems, your comment or post doesn't exist any more. Please, refresh page.";
+                $scope.scrollToWarning();
             });
-        });
-    }
+        }
     };
 
     $scope.showCommentFormWithCommentData = function (index) {
-        $scope.displayAddCommentButton = false;
-        $scope.displayCommentEditForm = true;
-        $scope.commentIndexToUpdate = index;
+        BlogService.getComment($routeParams.id, $scope.comments[index].id).then(function (payload) {
+            $scope.loadedComment = payload.data;
 
-        BlogService.getPostComments($routeParams.id).then(function (payload) {
-            $scope.comments = payload.data;
+            $scope.displayAddCommentButton = false;
+            $scope.displayCommentEditForm = true;
+            $scope.commentIdToUpdate = $scope.loadedComment.id;
 
-            var filledInForm = {
-                "summary": $scope.comments[index].summary,
-                "text": $scope.comments[index].text
+            $scope.comment = {
+                "summary": $scope.loadedComment.summary,
+                "text": $scope.loadedComment.text
             };
-
-            $scope.comment = filledInForm;
+        }, function () {
+            $scope.isWarning = true;
+            $scope.warningMessage = "Seems, your comment or post doesn't exist any more.Please, refresh page.";
+            $scope.scrollToWarning();
         });
     };
 
@@ -100,10 +117,18 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
         $scope.requiredSummaryErrorStyle = {};
     };
 
+    $scope.scrollToWarning = function () {
+        var duration = 500,
+            offset = 50,
+            warning = angular.element(document.getElementsByClassName('alert-warning'));
+
+        $document.scrollToElement(warning, offset, duration);
+    };
+
     $scope.scrollToEditedComment = function () {
-        var duration = 1000,
-            offset = 10,
-            editedComment = angular.element(document.querySelectorAll('[ng-repeat="comment in comments"]')[$scope.commentIndexToUpdate]);
+        var duration = 500,
+            offset = 50,
+            editedComment = angular.element(document.querySelectorAll('[ng-repeat="comment in comments"]')[$scope.commentIndexUpdated]);
 
         $document.scrollToElement(editedComment, offset, duration);
     };
@@ -111,18 +136,18 @@ app.controller('PostController', function ($routeParams, $scope, $document, Blog
     $scope.validateCommentForm = function () {
         if ($scope.comment == undefined || !$scope.comment.summary) {
             $scope.isCommentFormValid = false;
-            $scope.requiredSummaryErrorStyle = {'border-color':'red'};
+            $scope.requiredSummaryErrorStyle = {'border-color': 'red'};
         }
-        else { 
+        else {
             $scope.isCommentFormValid = true;
             $scope.requiredSummaryErrorStyle = {};
         }
     };
 
     $scope.cancelPostComment = function () {
-        $scope.clearCommentForm(); 
-        $scope.displayAddCommentButton = true; 
-        $scope.displayCommentEditForm = false; 
+        $scope.clearCommentForm();
+        $scope.displayAddCommentButton = true;
+        $scope.displayCommentEditForm = false;
         $scope.isCommentFormValid = true;
         $scope.requiredSummaryErrorStyle = {};
     };

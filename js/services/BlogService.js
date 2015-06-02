@@ -31,10 +31,7 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + id + '/comments',
             method: 'GET'
-        }).error(function (data) {
-             ErrorMessageService.setMessageValue("we couldn't get post comments");
-             $location.url('/error');
-         });
+        });
     };
     this.addPost = function (post) {
         return $http({
@@ -55,10 +52,7 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
             data: '{"text":"' + comment.text + '","summary":"' + comment.summary + 
             '","author":"' + comment.author + '","timestamp":"' + comment.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
-        }).error(function (data) {
-             ErrorMessageService.setMessageValue("we couldn't add comment to the post");
-             $location.url('/error');
-         });
+        });
     };
     this.deletePost = function (id) {
         return $http({
@@ -73,10 +67,7 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
         return $http({
             url: 'http://localhost:3003/api/posts/' + postId + '/comments/' + commentId,
             method: 'DELETE'
-        }).error(function (data) {
-             ErrorMessageService.setMessageValue("we couldn't delete comment");
-             $location.url('/error');
-         });
+        });
     };
     this.updatePost = function (id, post) {
         return $http({
@@ -97,9 +88,12 @@ app.service('BlogService', function ($http, $location, ErrorMessageService) {
             data: '{"text":"' + comment.text + '","summary":"' + comment.summary + 
             '","author":"' + comment.author + '","timestamp":"' + comment.timestamp +'"}',
             headers: {'Content-Type': 'application/json'}
-        }).error(function (data) {
-             ErrorMessageService.setMessageValue("we couldn't update comment details");
-             $location.url('/error');
-         });
+        });
+    };
+    this.getComment = function (postId, commentId) {
+        return $http({
+            url: 'http://localhost:3003/api/posts/' + postId + '/comments/' + commentId,
+            method: 'GET'
+        });
     };
 });
