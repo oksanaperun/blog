@@ -1,4 +1,4 @@
-var app = angular.module('blog', ['ngRoute', 'duScroll']);
+var app = angular.module('blog', ['ngRoute', 'duScroll', 'ngSanitize']);
 
 app.config(function ($routeProvider) {
 

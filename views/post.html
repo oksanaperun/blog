@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-8">
                 <h4 class="comment-summary">{{comment.summary}}</h4>
-                <div class="comment-text">{{comment.text}}</div>
+                <div class="comment-text" ng-bind-html="comment.text"></div>
             </div>
             <a class="pull-right" href="" title="To delete comment">
                 <img class="menu-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">

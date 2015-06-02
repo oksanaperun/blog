@@ -23,7 +23,7 @@ app.controller('MainController', function ($scope, $document, BlogService) {
             var date = new Date(),
                 post = {
                     "title": $scope.post.title,
-                    "text": ($scope.post.text == undefined ? "" : $scope.post.text),
+                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')),
                     "author": "user",
                     "timestamp": date.getTime()
                 };
@@ -85,7 +85,7 @@ app.controller('MainController', function ($scope, $document, BlogService) {
 
                 var post = {
                     "title": $scope.post.title,
-                    "text": $scope.post.text,
+                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')),
                     "author": $scope.loadedPost.author,
                     "timestamp": $scope.loadedPost.timestamp
                 };

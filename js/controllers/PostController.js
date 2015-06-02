@@ -24,7 +24,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, $loc
             var date = new Date(),
                 comment = {
                     "summary": $scope.comment.summary,
-                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text),
+                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')),
                     "author": "user",
                     "timestamp": date.getTime()
                 };
@@ -66,7 +66,7 @@ app.controller('PostController', function ($routeParams, $scope, $document, $loc
 
                 var comment = {
                     "summary": $scope.comment.summary,
-                    "text": $scope.comment.text,
+                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')),
                     "author": $scope.loadedComment.author,
                     "timestamp": $scope.loadedComment.timestamp
                 };
