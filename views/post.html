@@ -24,17 +24,16 @@
                     <p>{{comment.timestamp | date}}</p>
                 </div>
             </div>
-            <a class="pull-right" href="" title="To delete comment">
-                <img class="menu-btn" src="../img/delete-button.png" alt="delete button"
-                     ng-click="deleteComment($index)">
-            </a>
-            <a class="pull-right" href="#commentForm" title="To edit comment" du-smooth-scroll>
-                <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
-            </a>
             <div class="col-md-8">
                 <h4 class="comment-summary">{{comment.summary}}</h4>
                 <div class="comment-text">{{comment.text}}</div>
             </div>
+            <a class="pull-right" href="" title="To delete comment">
+                <img class="menu-btn" src="../img/delete-button.png" alt="delete button" ng-click="deleteComment($index)">
+            </a>
+            <a class="pull-right" href="#commentForm" title="To edit comment" du-smooth-scroll>
+                <img class="menu-btn" src="../img/edit-button.png" alt="edit button" ng-click="showCommentFormWithCommentData($index)">
+            </a>
         </div>
     </li>
 </ul>
