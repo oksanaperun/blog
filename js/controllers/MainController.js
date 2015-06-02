@@ -142,8 +142,24 @@ app.controller('MainController', function ($scope, BlogService) {
     $scope.cancelPostChanges = function () {
         $scope.clearPostForm(); 
         $scope.displayAddPostButton = true; 
-        $scope.displayPostEditForm = false
+        $scope.displayPostEditForm = false;
         $scope.isPostFormValid = true;
         $scope.requiredTitleErrorStyle = {};
-    };    
+    };
+
+    $scope.getReductionText = function (text, requiredLength) {
+        if (text.length <= requiredLength)
+            return text;
+
+        var firstSentence = text.split(' ')[0];
+
+        if (firstSentence.length > requiredLength)
+            return '';
+
+        text = text.substr(0, requiredLength + 1);
+
+        for (var j = text.length; j > 0; j--)
+            if (text.substr(j, 1) == ' ')
+                return text.substr(0, j) + '...';
+    }
 });

@@ -34,10 +34,10 @@
     <ul class="blog-posts-list">
         <li ng-repeat="post in posts" ng-init="postToDeleteIndex=-1">
             <div class="blog-post row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <h2><a class="blog-post-title" href="#/posts/{{post.id}}">{{post.title}}</a></h2>
                     <p class="blog-post-meta">by {{post.author}} on {{post.timestamp | date}}</p>
-                    <p class="blog-post-text">{{post.text}}</p>
+                    <p class="blog-post-text">{{getReductionText(post.text, 120)}}</p>
                 </div>
                 <div class="col-md-3">
                     <a class="pull-right" href="" title="To delete post">
