@@ -145,7 +145,7 @@ h6, .h6 {
  */
 
 .blog-post {
-  margin-bottom: 60px;
+  margin-bottom: 0;
 }
 .blog-post-title {
   margin-bottom: 5px;
@@ -211,4 +211,8 @@ a.blog-post-title, a.a-in-footer {
 
 .error-message {
   margin-top: 130px;
+}
+
+ul.blog-posts-list li {
+  margin-top: 40px;
 }
