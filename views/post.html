@@ -2,7 +2,7 @@
     <div>
         <h3 class="post-title">{{post.title}}</h3>
         <h5 class="post-created-info">by {{post.author}} on {{post.timestamp | date}}</h5>
-        <div class="post-text">{{post.text}}</div>
+        <div class="post-text" ng-bind-html="post.text"></div>
     </div>
 </div>
 
