@@ -1,4 +1,7 @@
 app.controller('PostController', function ($routeParams, $scope, $document, $location, BlogService, ErrorMessageService) {
+    var maxCommentSummaryLength = 50,
+        maxCommentTextLength = 500;
+
     BlogService.getPost($routeParams.id).then(function (payload) {
         $scope.post = payload.data;
         $scope.getPostComments();
@@ -23,8 +26,8 @@ app.controller('PostController', function ($routeParams, $scope, $document, $loc
         if ($scope.isCommentFormValid) {
             var date = new Date(),
                 comment = {
-                    "summary": $scope.comment.summary,
-                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')),
+                    "summary": $scope.comment.summary.substr(0, maxCommentSummaryLength),
+                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')).substr(0, maxCommentTextLength),
                     "author": "user",
                     "timestamp": date.getTime()
                 };
@@ -65,8 +68,8 @@ app.controller('PostController', function ($routeParams, $scope, $document, $loc
                 $scope.loadedComment = payload.data;
 
                 var comment = {
-                    "summary": $scope.comment.summary,
-                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')),
+                    "summary": $scope.comment.summary.substr(0, maxCommentSummaryLength),
+                    "text": ($scope.comment.text == undefined ? "" : $scope.comment.text.replace(/\r?\n/g, '<br />')).substr(0, maxCommentTextLength),
                     "author": $scope.loadedComment.author,
                     "timestamp": $scope.loadedComment.timestamp
                 };

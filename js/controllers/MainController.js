@@ -1,6 +1,8 @@
 app.controller('MainController', function ($scope, $document, BlogService) {
     var postsPerPage = 5, // counts of posts for paging
-        startIndexOnPage = 0; // index of first post which should be shown on the page
+        startIndexOnPage = 0, // index of first post which should be shown on the page
+        maxPostTitleLength = 50,
+        maxPostTextLength = 500;
 
     $scope.pageNumber = 0; // default page number for paging
 
@@ -22,8 +24,8 @@ app.controller('MainController', function ($scope, $document, BlogService) {
         if ($scope.isPostFormValid) {
             var date = new Date(),
                 post = {
-                    "title": $scope.post.title,
-                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')),
+                    "title": $scope.post.title.substr(0, maxPostTitleLength),
+                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')).substr(0, maxPostTextLength),
                     "author": "user",
                     "timestamp": date.getTime()
                 };
@@ -84,8 +86,8 @@ app.controller('MainController', function ($scope, $document, BlogService) {
                 $scope.loadedPost = payload.data;
 
                 var post = {
-                    "title": $scope.post.title,
-                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')),
+                    "title": $scope.post.title.substr(0, maxPostTitleLength),
+                    "text": ($scope.post.text == undefined ? "" : $scope.post.text.replace(/\r?\n/g, '<br />')).substr(0, maxPostTextLength),
                     "author": $scope.loadedPost.author,
                     "timestamp": $scope.loadedPost.timestamp
                 };
