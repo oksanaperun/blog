@@ -105,6 +105,7 @@ describe('Blog', function () {
 
         var rejectDeletingButton = element(by.buttonText('No'));
 
+		rejectDeletingButton.isDisplayed();
         rejectDeletingButton.click();
 
         element.all(by.repeater('post in posts')).then(function (posts) {
@@ -123,6 +124,7 @@ describe('Blog', function () {
 
         var confirmDeletingButton = element(by.buttonText('Yes'));
 
+		confirmDeletingButton.isDisplayed();
         confirmDeletingButton.click();
 
         element.all(by.repeater('post in posts')).then(function (posts) {
